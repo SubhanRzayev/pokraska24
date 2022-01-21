@@ -84,11 +84,11 @@ WSGI_APPLICATION = 'Pobkrasca.wsgi.application'
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.postgresql',
-        'NAME': 'db_name',
-        'USER': 'db_user',
-        'PASSWORD': '12345',
-        'HOST': 'localhost',
-        'PORT': 5432
+        'NAME': '',
+        'USER': '',
+        'PASSWORD': '',
+        'HOST': '',
+        'PORT': 
     }
 }
 
