@@ -1,0 +1,123 @@
+{% extends 'base.html' %}
+
+{% load static %} 
+{% block content %}
+
+<main class="main">
+  <div class="crumbs-list">
+    <div class="container">
+      <ul class="crumbs-ul">
+        <li><a href="{% url 'core:index' %}">Главная</a></li>
+        <li class="active">О компании</li>
+      </ul>
+    </div>
+  </div>
+  {% for about in about_list %}
+  <div class="title-wp text_edit">
+    <div class="container">
+      <h1>{{about.title}}</h1>
+    </div>
+  </div>
+  <div class="text_edit">
+    <div class="container">
+      <div class="img-left">
+        <img
+          alt="about"
+          class="lazyload"
+          data-src="{{about.about_image.url}}"
+          src="{{about.about_image.url}}"
+        />
+      </div>
+
+      <p>
+        {{about.description|safe}}<a href="../usloviya-yekspluatacii/index.html"
+          ></a
+        >
+      </p>
+
+      <div class="img-right">
+          {% for a in about.about_images.all %}
+        <img
+          alt="about"
+          class="lazyload"
+          data-src="{{a.image.url}}"
+          src="{{a.image.url}}"
+        />
+        {% endfor %}
+      </div>
+
+      <p>
+        <a href="../process-pokraski/index.html"></a>{{about.description1|safe}}
+      </p>
+
+    
+
+      <br /><br />
+    </div>
+  </div>
+  {% endfor %}
+  <div class="bottom-form-block not-home">
+    {% for i in contact_list %}
+    <div
+      class="container"
+      style="background-image: url({{i.image.url}})"
+    >
+    {% endfor %}
+      <form
+        action=""
+        class="bottom-form base-form main-form sendLead"
+        method="post"
+      >
+        {% csrf_token %}
+
+        <span class="title-base-big">Оставьте заявку</span>
+        <span class="title-sub">на бесплатный расчет стоимости работ </span>
+        <div class="form-body">
+          <div class="inp-wp">
+            {{form.order_option}}
+
+            <label>Тип покрытия</label>
+          </div>
+          <div class="inp-wp">
+            {{form.name}}
+            {{form.label}}  
+          </div>
+          <div class="inp-wp">
+            {{form.quantity}}
+            {{form.label}}
+
+          </div>
+          <div class="inp-wp">
+            {{form.phone}}
+            {{form.label}}
+           
+          </div>
+          <div class="wrap-textarea">
+            {{form.text}}
+            {{form.label}}
+           
+          </div>
+          <div class="confid-wp">
+            <div class="confid agree">
+              <div class="left-pos">
+                {{form.checkbox}}
+                
+              </div>
+              <div class="right-pos">
+                <p>
+                  Я согласен на обработку персональных данных и ознакомлен с
+                  <a href="https://pokraska24.com/privacy-policy/"
+                    >Политикой конфиденциальности.</a
+                  >
+                </p>
+              </div>
+            </div>
+            <button class="def-btn" type="submit">Получить расчет</button>
+          </div>
+        </div>
+      </form>
+    </div>
+  </div>
+</main>
+
+{% endblock %}

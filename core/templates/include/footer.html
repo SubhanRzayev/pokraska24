@@ -1,0 +1,116 @@
+{% load static %}
+{% load custom_tags %}
+<footer>
+    <div class="container">
+        <div class="footer-content">
+            <div class="row row-flex">
+                <div class="col-lg-4 col-md-4 col-sm-6 col-xs-6 col-xxs">
+                    <div class="logo-foot-wp">
+                        <div class="logo">
+                            <img style="width:300px;height:108px;" src="{% static 'property-construction-logo-design-business-corporate-si-real-estate-property-construction-logo-design-business-102538781.jpg' %}" alt="Покраска-24" />
+
+                        </div>
+                        <div class="footer-info">
+                            <div class="rights">Copyright © 2010-2020 Покраска24<br>Предлагаем услуги по высококачественной покраске мебели и изделий из дерева, металла и алюминия  итальянскими, немецкими и американскими материалами</div>
+                            <div class="under-logo-menu">
+                                <ul>
+                                    <li><a href="https://pokraska24.com/privacy-policy/">Политика конфиденциальности</a></li>
+                                    
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-lg-3 col-md-3 hidden-sm hidden-xs">
+                    <div class="f-menu-wp">
+                {% header_category as context %}
+
+                        <div class="f-menu-title">Изделия</div>
+                        <ul class="f-menu">
+                            {% for s in context.servicecategory %}
+                            {% for service in s.service.all %}
+                            {% if s.title == "Виды изделий" %}
+                            <li class="first"><a href="{{service.get_absolute_url}}" >{{service.title}}</a>
+                            </li>
+                            {% endif %}
+                            {% endfor %}
+                            {% endfor %}
+                        </ul>
+                    </div>
+                </div>
+                <div class="col-lg-3 col-md-3 hidden-sm hidden-xs">
+                    <div class="f-menu-wp">
+                        <div class="f-menu-title">Покраска24</div>
+                        <ul class="f-menu">
+                            <li class="first"><a href="{% url 'core:about' %}" >О компании</a>
+                            </li>
+                            <li><a href="{% url 'core:service' %}" class="double_column">Услуги</a>
+                            </li>
+                            <li><a href="{% url 'core:price' %}" >Цены</a>
+                            </li>
+                            <li><a href="{% url 'core:foto' %}" >Фото цеха</a>
+                            </li>
+                            <li><a href="{% url 'core:project' %}" >Проекты и работы</a>
+                            </li>
+                            <li><a href="{% url 'core:process' %}" >Процесс покраски</a>
+                            </li>
+                            <li class="last"><a href="{% url 'core:contact' %}" >Контакты</a>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+                <div class="col-lg-2 col-md-2 col-sm-6 col-xs-6 col-xxs hidden-xxs">
+                    {% header_address as context%}
+                    {% for i in context %}
+                    <div class="f-btn-wp">
+                        <div class="phone-wp">
+                            <a href="tel:+74955086345" class="phone">{{i.phone}}</a>
+                            <a href="tel:+79255086345" class="phone">{{i.phone1}}</a>
+                            <a href="mailto:info@pokraska24.com" class="mail-link">{{i.email}}</a>
+                        </div>
+                        
+                        <div class="adress">
+                            {{i.location}}. 1
+                        </div>
+                        {% endfor %}
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    
+	<!-- Yandex.Metrika counter -->
+	<script type="text/javascript" >
+	   (function(m,e,t,r,i,k,a){m[i]=m[i]||function(){(m[i].a=m[i].a||[]).push(arguments)};
+	   m[i].l=1*new Date();k=e.createElement(t),a=e.getElementsByTagName(t)[0],k.async=1,k.src=r,a.parentNode.insertBefore(k,a)})
+	   (window, document, "script", "../mc.yandex.ru/metrika/tag.js", "ym");
+
+	   ym(61762798, "init", {
+			clickmap:true,
+			trackLinks:true,
+			accurateTrackBounce:true,
+			webvisor:true
+	   });
+	</script>
+	<noscript><div><img src="https://mc.yandex.ru/watch/61762798/1" style="position:absolute; left:-9999px;" alt="" /></div></noscript>
+	<!-- /Yandex.Metrika counter -->
+	
+	<!-- Global site tag (gtag.js) - Google Analytics -->
+    <script async src="https://www.googletagmanager.com/gtag/js?id=UA-167780614-1"></script>
+    <script>
+      window.dataLayer = window.dataLayer || [];
+      function gtag(){dataLayer.push(arguments);}
+      gtag('js', new Date());
+    
+      gtag('config', 'UA-167780614-1');
+    </script>
+	
+</footer>
+
+
+
+
+
+
+
+</div>

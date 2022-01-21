@@ -1,0 +1,309 @@
+{% extends 'base.html' %} 
+{% load static %} 
+{% load custom_tags %} 
+{% load thumbnail %} 
+{% block content %}
+
+<main class="main">
+  <div class="top-carousel-block">
+    <div class="container">
+      <div class="top-carousel">
+        <div class="banner-artl">
+          <div
+            class="prev"
+            style="
+              background-image: url({% static 'cache_image/assets/content/images/RectangleBG_1232x0_4f8.png'%});
+            "
+          ></div>
+          {% for i in index_list %}
+          <div class="descr">
+            <h1 class="banner-title-sub">
+              {{i.title}}
+            </h1>
+            <span class="banner-title">{{i.yaer_work}}</span>
+            <span class="banner-txt"
+              >{{i.description|safe}}</span
+            >
+            <a href="{% url 'core:service' %}" class="def-btn"
+              >Смотреть весь список</a
+            >
+          </div>
+          {% endfor %}
+          <div class="carousel-form base-form main-form">
+            <form action="" method="post" class="sendLead">
+              {% csrf_token %}
+
+              <span class="title-base-big">Оставьте заявку</span>
+              <span class="title-sub">и мы вам перезвоним</span>
+
+              <div class="form-body">
+                <div class="inp-wp">
+                  {{form.name}}
+                  {{form.label}}
+                  {{form.errors}}
+                  
+                </div>
+                <div class="inp-wp last">
+                  {{form.phone}}
+                  {{form.label}}
+                  {{form.errors}}
+
+                  
+                  
+                </div>
+                <div class="confid agree">
+                  <div class="left-pos">
+                    {{form.checkbox}}
+                  </div>
+                  <div class="right-pos">
+                    <p>
+                      Я согласен на обработку персональных данных и ознакомлен с
+                      <a href="https://pokraska24.com/privacy-policy/"
+                        >Политикой конфиденциальности.</a
+                      >
+                    </p>
+                  </div>
+                </div>
+                <button class="def-btn" type="submit">Отправить</button>
+                  Получить консультацию   
+                </button>
+              </div>
+            </form>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  {% header_category as context %}
+  <div class="service-block">
+    <div class="container">
+      <div class="title-base">Наши услуги</div>
+      {% for s in context.servicecategory %}
+
+      <h2>{{s.title}}</h2>
+      <div class="row">
+        {% for service in s.service.all %}
+
+        <div class="col-md-3 col-sm-4 col-xs-6 col-xxs">
+          <div class="service-item">
+            <div class="prev">
+              <a href="{{service.service_image.url}}">
+                {% thumbnail service.service_image "370x270" crop="center" as im%}
+                <img
+                  src="{{ im.url }}"
+                  width="300"
+                  height="270"
+                  class="lazyload"
+                  alt="Покрытие матовым лаком"
+                />
+                {% endthumbnail %}
+              </a>
+            </div>
+            <div class="descr">
+              <a href="pokrytie-matovym-lakom/index.html" class="service-title"
+                >{{service.title}}</a
+              >
+              <div class="descr-txt">{{service.description|safe}}</div>
+            </div>
+          </div>
+        </div>
+        {% endfor %}
+      </div>
+      {% endfor %}
+    </div>
+  </div>
+
+  {% for about in about_list %}
+  <div class="about-block">
+    <div class="container">
+      <div class="about-wp">
+        <div class="img-left">
+          <img
+            class="lazyload"
+            data-src="{{about.about_image.url}}"
+            src="{{about.about_image.url}}"
+            alt="О нас"
+          />
+        </div>
+        <div class="text_edit">
+          <div class="short_block">
+            <h2>О компании</h2>
+
+            <p>
+              {{about.description|safe}}
+            </p>
+
+            <div class="short_content hidden">
+
+              <p>
+                {{about.description1|safe}}
+              </p>
+            </div>
+
+            <a href="#" class="js_toggle_text_btn def-btn"
+              >Показать полностью</a
+            >
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  {% endfor %}
+
+  <div class="service-list">
+    <div class="container">
+      {% for work in our_work_list %}
+      <div class="service-list-wp">
+        <div class="left-block">
+          <div class="title-base">Что красим</div>
+          <div class="text_edit">
+            <p>
+              {{work.description|safe}}
+            </p>
+            <ul class="check-list">
+              {{work.description1|safe}}
+            </ul>
+           
+          </div>
+          <div class="btn-wp">
+            <a href="{% url 'core:service' %}" class="def-btn">Наши услуги</a>
+          </div>
+        </div>
+        <div class="rigt-block">
+          {% thumbnail work.image "370x247" crop="center" as im%}
+                <img
+                  src="{{ im.url }}"
+                  width="600"
+                  height="580"
+                  class="lazyload"
+                  alt="Покрытие матовым лаком"
+                />
+          {% endthumbnail %}
+        </div>
+      </div>
+      {% endfor %}
+
+      <br />
+
+      <p>
+        Подробная информация о стоимости услуг находится в разделе
+        <a href="czenyi/index.html">Цены</a>.
+      </p>
+    </div>
+  </div>
+  <div class="photo-block">
+    <div class="container">
+      <div class="title-base">Фото наших проектов</div>
+      <div class="row">
+        {% for project in project_image_list %}
+        <div class="col-lg-2 col-md-3 col-sm-4 col-xs-6">
+          <div class="photo-item">
+            <a
+              href="{{project.project_image.url}}"
+              data-fancybox="images"
+            >
+            {% thumbnail project.project_image "192x126" crop="center" as im %}
+              
+            <img
+              src="{{im.url}}"
+              alt="Шпон + лак матовый в офисе"
+              title="Шпон + лак матовый в офисе"
+              data-tags="Все работы|Мебель из шпона|Офис|Покрытие матовым лаком"
+            />
+            {% endthumbnail %}
+            </a>
+          </div>
+        </div>
+        {% endfor %}
+
+        <div class="col-lg-2 col-md-3 col-sm-4 col-xs-6">
+          <div class="photo-item">
+            <a
+              href="{% url 'core:project' %}"
+              
+            >
+              <img
+                class="lazyload"
+                src="{% static 'content/images/works/4ofis_2.jpg' %}"
+                style="width:192px; height:126px;"
+               
+              />
+            </a>
+          </div>
+        </div>
+        
+        
+
+        
+      </div>
+    </div>
+  </div>
+  
+  <div
+    class="bottom-form-block"
+    style="background-image: url(static/template/images/bott_form.png)"
+  >
+    <div class="container">
+      <form
+        action=""
+        class="bottom-form base-form main-form sendLead"
+        method="post"
+      >
+      {% csrf_token %}
+      
+
+        <span class="title-base-big">Оставьте заявку</span>
+        <span class="title-sub">на бесплатный расчет стоимости работ </span>
+        <div class="form-body">
+
+          <div class="inp-wp">
+              {{form.order_option}}
+            <label>Тип покрытия</label>
+          </div>
+          <div class="inp-wp">
+            {{form.name}}
+            {{form.label}}
+          </div>
+          <div class="inp-wp">
+            {{form.quantity}}
+            {{form.label}}
+          </div>
+          <div class="inp-wp">
+            {{form.phone}}
+            {{form.label}}
+          </div>
+          <div class="wrap-textarea">
+            {{form.text}}
+            {{form.label}}
+          </div>
+          <div class="confid-wp">
+            <div class="confid agree">
+              <div class="left-pos">
+                {{form.checkbox}}
+                
+              </div>
+              <div class="right-pos">
+                <p>
+                  Я согласен на обработку персональных данных и ознакомлен с
+                  <a href="https://pokraska24.com/privacy-policy/"
+                    >Политикой конфиденциальности.</a
+                  >
+                </p>
+              </div>
+            </div>
+            <button class="def-btn" type="submit">Получить расчет</button>
+          </div>
+        </div>
+      </form>
+    </div>
+  </div>
+</main>
+
+
+
+
+
+
+{% endblock %}
+
+<!-- Mirrored from pokraska24.com/ by HTTrack Website Copier/3.x [XR&CO'2014], Fri, 14 Jan 2022 09:37:29 GMT -->

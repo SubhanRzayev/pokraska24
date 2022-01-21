@@ -1,0 +1,56 @@
+{% extends 'base.html' %}
+{% load static %} 
+{% load thumbnail %}
+
+{% block content %}
+
+<main class="main">
+  <div class="crumbs-list">
+    <div class="container">
+      <ul class="crumbs-ul">
+        <li><a href="{% url 'core:index' %}">Главная</a></li>
+        <li class="active">Фото цеха</li>
+      </ul>
+    </div>
+  </div>
+  <div class="title-wp text_edit">
+    <div class="container">
+      <h1>Фото цеха</h1>
+    </div>
+  </div>
+
+
+  <div class="works-block">
+    <div class="container">
+      <div class="photo-block">
+        <div class="row">
+          {% for image in image_list %}
+          <div
+            class="col-lg-2 col-md-3 col-sm-4 col-xs-6 gallery_item"
+            style=""
+          >
+            <div class="photo-item">
+              <a
+                href="{{image.image.url}}"
+                data-fancybox="images"
+              >
+              {% thumbnail image.image "370x347" crop="center" as im %}
+                  <img src="{{ im.url }}" width="300" height="370"
+                  alt="Библиотека по время производства"
+                  title="Библиотека по время производства"
+                  data-tags="Все работы">
+              {% endthumbnail %}
+                
+              </a>
+            </div>
+          </div>
+          {% endfor %}
+
+          
+        </div>
+      </div>
+    </div>
+  </div>
+</main>
+
+{% endblock %}

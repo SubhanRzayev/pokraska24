@@ -1,0 +1,220 @@
+{% load static %}
+{% load custom_tags %}
+
+<header>
+  <div class="h-top">
+    <div class="container">
+      <div class="row-flex">
+        <div class="logo-wp">
+          <div class="logo">
+            <a href="{% url 'core:index' %}">
+            <img style="width:300px;height:108px;" src="{% static 'property-construction-logo-design-business-corporate-si-real-estate-property-construction-logo-design-business-102538781.jpg' %}" alt="Покраска-24" />
+          </a>
+          </div>
+          {% header_address as context%}
+          {% for i in context %}
+          <div class="logo-text">
+            {{i.title}}
+          </div>
+        </div>
+        <div class="h-contact-wp">
+          <div class="row-flex">
+            <div class="adress-wp">
+              <span
+                >{{i.location|slice:"25:"}}</span
+              >
+            </div>
+            <div class="phone-wp">
+              <a href="tel:+74955086345" class="phone">{{i.phone}}</a>
+              <a href="mailto:info@pokraska24.com" class="mail-link"
+                >{{i.email}}</a
+              >
+            </div>
+           <a href="#mob-menu-list" >
+             <div class="nav-icon">
+              <span></span>
+              <span></span>
+              <span></span>
+
+             </div>
+            </a>
+          </div>
+        </div>
+        {% endfor %}
+      </div>
+    </div>
+  </div>
+  <div class="h-bot">
+    <div class="container row-flex">
+      <div class="base-menu-wp">
+        <div class="base-menu">
+          <div class="row">
+            <ul class="">
+              <li class="first">
+                <a href="{% url 'core:about' %}">О компании</a>
+              </li>
+              <li class="parent">
+                <a href="{% url 'core:service' %}" class="double_column">Услуги</a>
+                {% header_category as context %}
+                <ul class="">
+                  {% for s in context.servicecategory %}
+                  <li class="first parent">
+                    <span>{{s.title}}</span>
+                    <ul class="">
+                      {% for service in s.service.all %}
+                      
+                      <li class="first">
+                        <a href="{{service.get_absolute_url}}"
+                          >{{service.title}}</a
+                        >
+                      </li>
+                      {% endfor %}
+                    </ul>
+                  </li>
+                  {% endfor %}
+                     
+                </ul>
+              </li>
+              <li>
+                <a href="{% url 'core:price' %}">Цены</a>
+              </li>
+              <li>
+                <a href="{% url 'core:foto' %}">Фото цеха</a>
+              </li>
+              <li>
+                <a href="{% url 'core:project' %}">Проекты и работы</a>
+              </li>
+              <li class="parent">
+                <a href="{% url 'core:process' %}">Процесс покраски</a>
+                <ul class="">
+                  <li class="first">
+                    <a href="usloviya-yekspluatacii/index.html"
+                      >Условия эксплуатации</a
+                    >
+                  </li>
+                  <li class="last">
+                    <a href="gost-16371-mebel/index.html">ГОСТ 16371. Мебель</a>
+                  </li>
+                </ul>
+              </li>
+              <li class="last">
+                <a href="{% url 'core:contact' %}">Контакты</a>
+              </li>
+              <li>
+                <a href="https://www.linkedin.com/"
+                  ><i
+                    class="fab fa-linkedin-in"
+                    style="color: black; font-size: 20px">
+                  </i
+                ></a>
+              </li>
+              <li>
+                <a href="https://www.instagram.com/"
+                  ><i
+                    class="fab fa-instagram"
+                    style="color: black; font-size: 20px">
+                  </i
+                ></a>
+              </li>
+            </ul>
+
+            
+          </div>
+        </div>
+      </div>
+      <div class="btn-wp">
+      </div>
+    </div>
+  </div>
+</header>
+
+<div class="header-fix">
+  <div class="h-top">
+    <div class="container">
+      <div class="row-flex">
+        <div class="logo-wp">
+          <div class="logo">
+            <a href="{% url 'core:index' %}"> 
+              <img style="width:250px;height:85px;" src="{% static 'property-construction-logo-design-business-corporate-si-real-estate-property-construction-logo-design-business-102538781.jpg' %}" alt="Покраска-24" />
+
+            </a> 
+          </div>
+        </div>
+        <div class="h-contact-wp">
+          <div class="row-flex">
+            {% for i in context %}
+            <div class="phone-wp">
+              <a href="tel:+74955086345" class="phone">{{i.phone}}</a>
+              <a href="mailto:info@pokraska24.com" class="mail-link"
+                >{{i.email}}</a
+              >
+            </div>
+            {% endfor %}
+            
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="h-bot">
+    <div class="container row-flex">
+      <div class="base-menu-wp">
+        <div class="base-menu">
+          <div class="row">
+            <ul class="">
+              <li class="first">
+                <a href="{% url 'core:about' %}">О компании</a>
+              </li>
+              <li class="parent">
+                <a href="{% url 'core:service' %}" class="double_column">Услуги</a>
+                <ul class="">
+                  {% for s in context.servicecategory %}
+                  <li class="first parent">
+                    <a href="{% url 'core:service' %}">{{s.title}}</a>
+                    <ul class="">
+                      {% for service in s.service.all %}
+                      <li class="first">
+                        <a href="{{service.get_absolute_url}}"
+                          >{{service.title}}</a
+                        >
+                      </li>
+                      {% endfor %}
+                     
+                    </ul>
+                  </li>
+                  {% endfor %}
+                </ul>
+              </li>
+              <li><a href="{% url 'core:price' %}">Цены</a></li>
+              <li><a href="{% url 'core:foto' %}">Фото цеха</a></li>
+              <li><a href="{% url 'core:project' %}">Проекты и работы</a></li>
+              <li class="parent">
+                <a href="{% url 'core:process' %}">Процесс покраски</a>
+                <ul class="">
+                  <li class="first">
+                    <a href="usloviya-yekspluatacii/index.html"
+                      >Условия эксплуатации</a
+                    >
+                  </li>
+                  <li class="last">
+                    <a href="gost-16371-mebel/index.html">ГОСТ 16371. Мебель</a>
+                  </li>
+                </ul>
+              </li>
+              <li class="last"><a href="{% url 'core:contact' %}">Контакты</a></li>
+            </ul>
+          </div>
+        </div>
+      </div>
+
+      {% header_address as context%}
+      {% for i in context %}
+        <div class="phone-wp">
+          <a href="tel:+74955086345" class="phone">{{i.phone}}</a>
+          <a href="mailto:info@pokraska24.com" class="mail-link"
+            >{{i.email}}</a>
+          </div>
+        </div>
+      {% endfor %}
+  </div>
+</div>

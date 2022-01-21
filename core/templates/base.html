@@ -1,0 +1,182 @@
+{% load static %}
+{% load custom_tags %}
+
+<!DOCTYPE html>
+
+<html lang="ru">
+
+
+<head>
+    <meta http-equiv="content-type" content="text/html;charset=UTF-8" />
+  
+
+    <meta charset="utf-8" />
+    
+    <style>
+    html .loader {
+        background: none repeat scroll 0 0 #ffffff;
+        bottom: 0;
+        height: 100%;
+        left: 0;
+        position: fixed;
+        right: 0;
+        top: 0;
+        width: 100%;
+        z-index: 9999;
+    }
+    html .loader .loader_inner {
+        background-image: url("{% static 'images/preloader.gif' %}");
+        -webkit-background-size: cover;
+        background-size: cover;
+        background-repeat: no-repeat;
+        background-position: center center;
+        background-color: #fff;
+        height: 60px;
+        width: 60px;
+        margin-top: -30px;
+        margin-left: -30px;
+        left: 50%;
+        top: 50%;
+        position: absolute;
+    }
+    </style>
+
+    <title></title>
+    <meta name="description" content='Предлагаем услуги по высококачественной покраске мебели и изделий из дерева итальянскими и немецкими материалами Тел/WhatsApp +79255086345' />
+
+    <link rel="shortcut icon" href="{% static 'favicon.ico' %}" type="image/x-icon">
+    <link rel="icon" href="{% static 'favicon.ico' %}" type="image/x-icon">
+    
+    <meta name="yandex-verification" content="a867e26319cfc234" />
+	<meta name="yandex-verification" content="4e83434d1c7baa0b" />
+	<meta name="google-site-verification" content="i2okSLEcQfy4IbmrDFuUDn43yHbtVhLe6-PQnnVM-RE" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1" />
+
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@100;200;300;400;500;600;700;800;900&display=swap" rel="stylesheet">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.10.0/css/all.min.css" rel="stylesheet">
+    
+
+    <link rel="stylesheet" href="{% static 'css/font/fonts/Roboto/roboto.css' %}" />
+    <link rel="stylesheet" href="{% static 'css/font/fonts/MaterialIcons/MaterialIcons.css' %}" />
+    <link rel="stylesheet" href="{% static 'js/libs/bootstrap/css/bootstrap-grid.min.css' %}" />
+
+    <link rel="stylesheet" href="{% static 'js/libs/fontawesome/css/font-awesome.css' %}">
+    <link rel="stylesheet" href="{% static 'js/libs/FormStyler/jquery.formstyler.css' %}">
+    <link rel="stylesheet" href="{% static 'js/libs/JqueryMmenu/jquery.mmenu.all.css' %}">
+    <link rel="stylesheet" href="{% static 'js/libs/OwlCarousel/owl.carousel.min.css' %}">
+    <link rel="stylesheet" href="{% static 'js/libs/fancybox/dist/jquery.fancybox.min.css' %}">
+    <link rel="stylesheet" href="{% static 'css/style.css' %}" />
+    <link rel="stylesheet" href="{% static 'css/style_media.css' %}" />
+
+    <!-- modernizr -->
+    
+
+</head>
+
+<!-- <script>var daFormConfig = {"default_submiter": "static/components/daforms/submit.php", "ym_counter_id":false}</script> -->
+
+<body>
+    <div class="page-wrapper home">
+        <div class="loader">
+    <div class="loader_inner"></div>
+</div>
+
+<div id="mob-menu-list">
+    <ul>
+        <li class="first"><a href="{% url 'core:about' %}" >О компании</a></li>
+        <li class="parent"><a href="{% url 'core:service' %}" class="double_column">Услуги</a>
+    {% header_category as context %}
+
+    <ul>
+        {% for s in context.servicecategory %}
+        <li class="first parent">
+            <span >{{s.title}}</span>
+            <ul>
+                {% for service in s.service.all %}
+                <li class="first">
+                    <a href="{{service.get_absolute_url}}" >{{service.title}}</a>
+                </li>
+                {%endfor%}
+            </ul>
+        </li>
+        {%endfor%}
+    </ul>
+</li>
+    <li>
+        <a href="{% url 'core:price' %}" >Цены</a>
+    </li>
+    <li>
+        <a href="{% url 'core:foto' %}" >Фото цеха</a>
+    </li>
+    <li>
+        <a href="{% url 'core:project' %}" >Проекты и работы</a>
+    </li>
+    <li class="parent">
+         <a href="{% url 'core:process' %}" >Процесс покраски</a>
+        <ul>
+            <li class="first">
+                <a href="usloviya-yekspluatacii/index.html" >Условия эксплуатации</a>
+            </li>
+            <li class="last">
+                <a href="gost-16371-mebel/index.html" >ГОСТ 16371. Мебель</a>
+            </li>
+        </ul>
+    </li>
+        <li class="last">
+            <a href="{% url 'core:contact' %}" >Контакты</a>
+        </li>
+       
+        {% header_address as context%}
+        
+        {% for i in context %}
+        <li class="adress-wp">
+            <span>{{i.location|slice:"25:52"}}<br>{{i.location|slice:"52:"}}</span>
+        </li>
+        <li class="phone-wp">
+            <a href="tel:+74955086345" class="phone">{{i.phone}}</a>
+            <a href="mailto:info@pokraska24.com">{{i.email}}</a>
+        </li>
+        {% endfor %}
+
+    </ul>
+</div>
+
+{% include 'include/header.html'%}
+
+{% block content %}
+
+
+{% endblock  %}
+
+{% include 'include/footer.html' %}
+
+
+
+
+
+    <script src="{% static 'js/libs/modernizr/modernizr.js' %}"></script>
+    <script src="{% static 'js/libs/detect/detect.js' %}"></script>
+    <script src="{% static 'js/libs/jquery/jquery-1.11.2.min.js' %}"></script>
+    <script src="{% static 'js/libs/FormStyler/jquery.formstyler.min.js' %}"></script>
+    <script src="{% static 'js/libs/JqueryMmenu/jquery.mmenu.all.min.js' %}"></script>
+    <script src="{% static 'js/libs/OwlCarousel/owl.carousel.min.js' %}"></script>
+    <script src="{% static 'js/libs/fancybox/dist/jquery.fancybox.min.js' %}"></script>
+    <script src="{% static 'js/libs/jquery_ui/jquery-ui.js' %}"></script>
+    <script src="{% static 'js/libs/maskedinput/jquery.maskedinput.min.js' %}"></script>
+    <script src="{% static 'js/libs/lazyload/lazyload.min.js' %}"></script>
+    
+    <script src="{% static 'js/common.js' %}"></script>
+
+    <script type="text/javascript" src="{% static 'components/daforms/js/lib/daforms_lite.min.js' %}"></script>
+    <script type="text/javascript" src="{% static 'js/libs/daforms.js' %}"></script>
+
+    
+
+
+</body>
+
+</html>
+
+
+

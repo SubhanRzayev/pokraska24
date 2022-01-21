@@ -1,0 +1,216 @@
+{% extends 'base.html' %} 
+{% load static %} 
+{% load thumbnail %} 
+{% block content %}
+
+<main class="main">
+  <div class="crumbs-list">
+    <div class="container">
+      <ul class="crumbs-ul">
+        <li><a href="{% url 'core:index' %}">Главная</a></li>
+        <li><a href="{% url 'core:service' %}">Услуги</a></li>
+        <li><a href="{% url 'core:service' %}">Виды покрытий</a></li>
+        <li class="active">{{service.title}}</li>
+      </ul>
+    </div>
+  </div>
+  <div class="title-wp text_edit">
+    <div class="container">
+      <h1>{{service.title}}</h1>
+    </div>
+  </div>
+  <div class="text_edit">
+    <div class="container">
+      <p>
+          {{service.description|safe}}
+        <a href="{% url 'core:price' %}">Цены</a>.
+      </p>
+      <div class="photo-block">
+        <div class="container">
+          <div class="title-base">Фото проектов с {{service.title}}</div>
+          <div class="row">
+            {% for service in service.service_images.all %}
+            <div class="col-lg-2 col-md-3 col-sm-4 col-xs-6">
+              <div class="photo-item">
+                <a
+                  href="{{service.image.url}}"
+                  data-fancybox="images"
+                >
+                {% thumbnail service.image "192x126" crop="center" as im %}
+                  <img
+                    class="lazyload"
+                    src="{{im.url}}"
+                  />
+                {% endthumbnail %}
+                </a>
+              </div>
+            </div>
+            {% endfor %}
+
+            <div class="col-lg-2 col-md-3 col-sm-4 col-xs-6">
+              <div class="photo-item">
+                <a
+                  href="{% url 'core:project' %}"
+                >
+                {% thumbnail service.service_image "192x126" crop="center" as im %}
+                  <img
+                    class="lazyload"
+                    src="{{im.url}}"
+                    
+                  />
+                  {% endthumbnail %}
+                </a>
+              </div>
+            </div>
+         
+          </div>
+        </div>
+      </div>
+      <div class="prices_block">
+        <div class="title-base">Цены на покрытие {{service.title}}</div>
+        <div class="price_table">
+          <div class="item item_head">
+            <div class="item_name">Услуга</div>
+            <div class="item_price">Цена в рублях за м2</div>
+          </div>
+          {% for price in service.service_prices.all %}
+          <div class="item">
+            <div class="item_name">{{price.title}}</div>
+            <div class="item_price">
+              <div class="price"><span>{{price.price}} </span></div>
+            </div>
+          </div>
+          {% endfor %}
+        
+        </div>
+      </div>
+
+      &nbsp;
+      <div class="service-block popular_services_block">
+        <div class="title-base">Другие услуги</div>
+        <div class="row">
+          {% for service in service_list %}
+          <div class="col-md-3 col-sm-4 col-xs-6 col-xxs">
+            <div class="service-item">
+              <div class="prev">
+                <a href="{{service.get_absolute_url}}">
+                  {% thumbnail service.service_image "370x270" crop="center" as im%}
+                  <img
+                    src="{{ im.url }}"
+                    width="300"
+                    height="270"
+                    class="lazyload"
+                    alt="Покрытие матовым лаком"
+                  />
+                  {% endthumbnail %}
+                </a>
+              </div>
+              <div class="descr">
+                <a
+                  href="../pokrytie-matovoy-yemalyu/index.html"
+                  class="service-title"
+                  >Покрытие матовой эмалью</a
+                >
+              </div>
+            </div>
+          </div>
+          {% endfor %}
+        
+        </div>
+      </div>
+
+      <br /><br />
+    </div>
+  </div>
+  <div class="bottom-form-block not-home">
+    <div
+      class="container"
+      style="background-image: url(../assets/template/images/bot_form_back.png)"
+    >
+      <form
+        action="#"
+        class="bottom-form base-form main-form sendLead"
+        method="post"
+      >
+        <input type="text" name="lastname" class="hidden" value="" />
+        <input type="hidden" name="form_id" class="hidden" value="4" />
+
+        <span class="title-base-big">Оставьте заявку</span>
+        <span class="title-sub">на бесплатный расчет стоимости работ </span>
+        <div class="form-body">
+          <div class="inp-wp">
+            <select name="coating_type">
+              <option value="Матовый лак">Матовый лак</option>
+              <option value="Массив/шпон морилка + лак мат. откр. поры">
+                Массив/шпон морилка + лак мат. откр. поры
+              </option>
+              <option value="Массив/шпон морилка + лак мат. зак. поры">
+                Массив/шпон морилка + лак мат. зак. поры
+              </option>
+              <option value="Лакирование 2 слоя">Лакирование 2 слоя</option>
+            </select>
+            <label>Тип покрытия</label>
+          </div>
+          <div class="inp-wp">
+            <input
+              type="text"
+              name="name"
+              placeholder="Введите ваше имя"
+              class="required"
+            />
+            <label>Ваше имя</label>
+            <span class="error_text"></span>
+          </div>
+          <div class="inp-wp">
+            <input type="text" name="quantity" placeholder="Количество (м2)" />
+            <label>Количество (м2)</label>
+          </div>
+          <div class="inp-wp">
+            <input
+              type="text"
+              name="phone"
+              placeholder="+7 ХХХ ХХХ-ХХ-ХХ"
+              data-type="phone"
+              class="required"
+            />
+            <label>Ваш телефон</label>
+            <span class="error_text"></span>
+          </div>
+          <div class="wrap-textarea">
+            <textarea
+              type="text"
+              name="other_information"
+              placeholder="Что красить и прочая информация"
+              title="Что красить и прочая информация"
+              class="textarea-default"
+            ></textarea>
+            <label>Дополнительная информация</label>
+          </div>
+          <div class="confid-wp">
+            <div class="confid agree">
+              <div class="left-pos">
+                <input
+                  type="checkbox"
+                  class="required"
+                  name="i-gree"
+                  data-type="igree"
+                />
+              </div>
+              <div class="right-pos">
+                <p>
+                  Я согласен на обработку персональных данных и ознакомлен с
+                  <a href="https://pokraska24.com/privacy-policy/"
+                    >Политикой конфиденциальности.</a
+                  >
+                </p>
+              </div>
+            </div>
+            <button class="def-btn field" type="submit">Получить расчет</button>
+          </div>
+        </div>
+      </form>
+    </div>
+  </div>
+</main>
+
+{% endblock %}

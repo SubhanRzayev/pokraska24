@@ -1,0 +1,127 @@
+{% extends 'base.html' %}
+{% load static %}
+{% load custom_tags %}
+
+{% block content %}
+
+<main class="main">
+  <div class="crumbs-list">
+    <div class="container">
+      <ul class="crumbs-ul">
+        <li><a href="{% url 'core:index' %}">Главная</a></li>
+        <li class="active">Контакты</li>
+      </ul>
+    </div>
+  </div>
+  <div class="title-wp text_edit">
+    <div class="container">
+      <h1>Контакты</h1>
+    </div>
+  </div>
+  {% header_address as context%}
+  <div class="text_edit">
+    <div class="container">
+      
+      <div class="row">
+        <div class="col-md-6">
+          {% for i in context %}
+          <table class="contact-table">
+            <tr>
+              <td>Наш адрес:</td>
+              <td>
+                {{i.location}}
+              </td>
+            </tr>
+            <tr>
+              <td>Эл. почта:</td>
+              <td>
+                <a href="mailto:info@pokraska24.com">{{i.email}}</a>
+              </td>
+            </tr>
+
+            <tr>
+              <td>Телефоны:</td>
+              <td>
+                <a href="tel:+74955086345">{{i.phone}}</a><br />
+                <a href="tel:+79255086345">{{i.phone1}}</a>
+              </td>
+            </tr>
+            <tr>
+              <td>Режим работы:</td>
+              <td>круглосуточно</td>
+            </tr>
+            <tr>
+              <td>Время работы офисов:</td>
+              <td>{{i.work_time}}</td>
+            </tr>
+          </table>
+          {% endfor %}
+          <br />ЧТОБЫ РАСЧИТАТЬ СТОИМОСТЬ ПРИШЛИТЕ ФОТО И ТЗ НА ПОЧТУ
+        </div>
+        <div class="col-md-6">
+          <div class="contact-map">
+            <script
+            type="text/javascript"
+            charset="utf-8"
+            async
+            src="https://api-maps.yandex.ru/services/constructor/1.0/js/?um=constructor%3A7919b5b8831708e814e96edbe9c0d7f07d780fd7634041180e6d91115903aa48&amp;width=100%25&amp;height=440&amp;lang=ru_RU&amp;scroll=false"
+            ></script>
+          </div>
+        </div>
+      </div>
+
+      <br />
+      <br />
+  {% header_address as context%}
+
+      <div class="bottom-form-block not-home recall">
+        {% for i in context %}
+        <div
+        
+          class="container"
+          style="background-image: url({{i.image.url}})"
+        >
+        {% endfor %}
+          <form action="" class="bottom-form base-form" method="post">
+              {% csrf_token %}
+            
+
+            <span class="title-base-big">Обратный звонок</span>
+
+            <div class="form-body">
+              <div class="inp-wp">
+                {{form.name}}
+                {{form.label}}
+              </div>
+              <div class="inp-wp">
+                {{form.phone}}
+                {{form.label}}
+              </div>
+              <div class="wrap-textarea">
+                {{form.content}}
+                {{form.label}}
+              </div>
+              <div class="confid agree">
+                <div class="left-pos">
+                  {{form.checkbox}}
+                </div>
+                <div class="right-pos">
+                  <p>
+                    Я согласен на обработку персональных данных и ознакомлен с
+                    <a href=""
+                      >Политикой конфиденциальности.</a
+                    >
+                  </p>
+                </div>
+              </div>
+              <button class="def-btn" type="submit">Отправить</button>
+            </div>
+          </form>
+        </div>
+      </div>
+      <br /><br />
+    </div>
+  </div>
+</main>
+
+{% endblock  %}

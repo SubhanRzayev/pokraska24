@@ -1,0 +1,51 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block content %}
+
+<main class="main">
+  <div class="crumbs-list">
+    <div class="container">
+      <ul class="crumbs-ul">
+        <li><a href="{% url 'core:index' %}">Главная</a></li>
+        <li class="active">Цены</li>
+      </ul>
+    </div>
+  </div>
+  <div class="title-wp text_edit">
+    <div class="container">
+      <h1>Цены</h1>
+    </div>
+  </div>
+  <div class="text_edit">
+    <div class="container">
+      <table class="price-table">
+        {% for proces in process_content_list %}
+        <tr>
+          <th>{{proces.price_head_content}}</th>
+          <th>Цена в рублях за м2</th>
+        </tr>
+        {% endfor %}
+        {% for price in price_list %}
+        <tr>
+          <td>{{price.title}}</td>
+          <td>{{price.price}}</td>
+        </tr>
+        {% endfor %}
+
+      </table>
+    
+
+      <p><b>Примечание:</b></p>
+      {% for proces in process_content_list %}
+      <p>
+        {{proces.price_content|safe}}
+      </p>
+      {% endfor %}
+
+      <br /><br />
+    </div>
+  </div>
+</main>
+
+{% endblock %}

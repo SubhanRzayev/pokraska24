@@ -1,0 +1,55 @@
+{% extends 'base.html' %}
+{% load static %} 
+{% block content %}
+
+<main class="main">
+  <div class="crumbs-list">
+    <div class="container">
+      <ul class="crumbs-ul">
+        <li><a href="{% url 'core:index' %}">Главная</a></li>
+        <li class="active">Процесс покраски</li>
+      </ul>
+    </div>
+  </div>
+  <div class="title-wp text_edit">
+    <div class="container">
+      <h1>Процесс покраски</h1>
+    </div>
+  </div>
+  <div class="text_edit">
+    <div class="container">
+      {% for process in process_content_list %}
+      <p>
+        {{process.content|safe}}
+      </p>
+      {% endfor %}
+    </div>
+  </div>
+  
+  <div class="process-list">
+    <div class="container">
+      {% for process in process_list %}
+      <div class="process-item">
+        <div class="head"><span>{{process.count}}</span>{{process.title}}</div>
+        <div class="proc-wp">
+          <div class="img-wp">
+            <img
+              class="lazyload"
+              data-src="{{process.process_image.url}}"
+              src="{{process.process_image.url}}"
+              alt="Процесс покраски. Этап 1 - Шлифовка и шпаклёвка"
+            />
+          </div>
+          <div class="txt-wp text_edit">
+            <p>
+              {{process.description|safe}}
+            </p>
+          </div>
+        </div>
+      </div>
+      {% endfor %}
+      
+    </div>
+  </div>
+</main>
+{% endblock %}

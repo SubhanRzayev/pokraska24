@@ -1,0 +1,149 @@
+{% extends 'base.html' %} 
+{% load static %} 
+{% load custom_tags %}
+{% load thumbnail %}
+{% block content %}
+
+<main class="main">
+  <div class="crumbs-list">
+    <div class="container">
+      <ul class="crumbs-ul">
+        <li><a href="{% url 'core:index' %}">Главная</a></li>
+        <li class="active">Услуги</li>
+      </ul>
+    </div>
+  </div>
+  
+  
+
+  <div class="title-wp text_edit">
+    <div class="container">
+      <h1>Наши услуги</h1>
+    </div>
+  </div>
+
+  {% header_category as context %}
+  <div class="service-block not-home">
+    <div class="container">
+      
+      {% for i in process_content_list %}
+      <p>{{i.service_content|safe}}</p>
+      {% endfor %}
+
+      {% for s in context.servicecategory %}  
+
+      <h2>{{s.title}} </h2>
+      <div class="row">
+        {% for service in s.service.all %}
+        <div class="col-md-3 col-sm-4 col-xs-6 col-xxs">
+          <div class="service-item">
+            <div class="prev">
+              <a href="{{ service.get_absolute_url }}">
+                {% thumbnail service.service_image "296x176" crop="center" as im %}
+                      <img src="{{ im.url }}" width="300" height="370"class="lazyload"
+                      alt="Покрытие матовым лаком"
+                      >
+                {% endthumbnail %}
+              </a>
+            </div>
+            <div class="descr">
+              <a
+                href="{{service.get_absolute_url}}"
+                class="service-title"
+                >{{service.title}}</a
+              >
+              <div class="descr-txt">{{service.description|safe}}</div>
+            </div>
+          </div>
+        </div>
+        {% endfor %}
+      </div>
+      {% endfor %}
+
+      
+      <div class="service-list">
+        <div class="row" style="text-align: center">
+          <div class="col-sm-12" style="margin: 20px 0 0">
+            <div class="btn-wp" style="width: 100%">
+              <a
+                class="def-btn-red"
+                href="{% url 'core:price' %}"
+                style="margin-left: 0"
+                >Цены на покраску</a
+              >
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="text_edit">
+    <div class="container"><br /><br /></div>
+  </div>
+  <div class="bottom-form-block not-home">
+    <div
+      class="container"
+      style="background-image: url(../assets/template/images/bot_form_back.png)"
+    >
+      <form
+        action=""
+        class="bottom-form base-form main-form sendLead"
+        method="post"
+      >
+        {% csrf_token %}
+
+        <span class="title-base-big">Оставьте заявку</span>
+        <span class="title-sub">на бесплатный расчет стоимости работ </span>
+        <div class="form-body">
+          <div class="inp-wp">
+            {{form.order_option}}
+             
+            <label>Тип покрытия</label>
+          </div>
+          <div class="inp-wp">
+            {{form.name}}
+            {{form.label}}
+
+          </div>
+          <div class="inp-wp">
+            {{form.quantity}}
+            {{form.label}}
+            
+
+          </div>
+          <div class="inp-wp">
+            {{form.phone}}
+            {{form.label}}
+            
+          </div>
+
+          <div class="wrap-textarea">
+            {{form.text}}
+            {{form.label}}
+          </div>
+
+          <div class="confid-wp">
+            <div class="confid agree">
+              <div class="left-pos">
+                {{form.checkbox}}
+
+              </div>
+              <div class="right-pos">
+                <p>
+                  Я согласен на обработку персональных данных и ознакомлен с
+                  <a href=""
+                    >Политикой конфиденциальности.</a
+                  >
+                </p>
+              </div>
+            </div>
+            <button class="def-btn" type="submit">Получить расчет</button>
+          </div>
+        </div>
+      </form>
+    </div>
+  </div>
+</main>
+
+
+{% endblock %}
